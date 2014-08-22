@@ -1,36 +1,31 @@
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
+#ant specific
+2dFightFormer/dist/
+2dFightFormer/build/
+ 
+#netbeans specific
+2dFightFormer/core
+2dFightFormer/nbproject/*
+!2dFightFormer/nbproject/project.properties
+!2dFightFormer/nbproject/project.xml
+ 
+#java specific
+*.class
+ 
+#general swap/backup files
+*.so
+*.log
+*.out
+*~
+*.swp
+*.DS_Store
+*.lock
 
-# Folder config file
-Desktop.ini
+*.class
 
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
 
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
-
-# =========================
-# Operating System Files
-# =========================
-
-# OSX
-# =========================
-
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Icon must ends with two \r.
-Icon
-
-# Thumbnails
-._*
-
-# Files that might appear on external disk
-.Spotlight-V100
-.Trashes
+# Package Files #
+*.jar
+*.war
+*.ear
