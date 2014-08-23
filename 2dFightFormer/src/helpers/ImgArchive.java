@@ -17,12 +17,21 @@ public class ImgArchive {
     //Characters
     private static Image player;
 
+    //Animations
+    private static Image playerStab;
+    private static Image playerStab2;
+
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         //Backgrounds
         plainGrassBG = new Image("res/PlainGrassBG.png");
 
         //Characters
         player = new Image("res/Player.png");
+
+        //Animations
+        playerStab = new Image("res/PlayerStab.png");
+        playerStab2 = new Image("res/PlayerStab2.png");
+
     }
 
     //Backgrounds
@@ -33,6 +42,15 @@ public class ImgArchive {
     //Characters
     public static Image getPlayer() {
         return player;
+    }
+
+    //Animaitons
+    public static Image getPlayerStab() {
+        return playerStab;
+    }
+    
+    public static Image getPlayerStab2() {
+        return playerStab2;
     }
 
 }

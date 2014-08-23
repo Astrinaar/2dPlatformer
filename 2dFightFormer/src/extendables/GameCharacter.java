@@ -60,6 +60,7 @@ public abstract class GameCharacter implements SlickClass {
 
     public void changeVerticalMomentum(float momentum) {
         verticalMomentum += momentum;
+        onGround = false;
     }
 
     public void receiveDamage(float damage) {
@@ -161,6 +162,7 @@ public abstract class GameCharacter implements SlickClass {
 
     public void setVerticalMomentum(float verticalMomentum) {
         this.verticalMomentum = verticalMomentum;
+        onGround = false;
     }
 
 }

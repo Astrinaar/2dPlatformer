@@ -48,7 +48,7 @@ public class CombatState extends BasicGameState {
         gravity.init(container, game);
         collisionHandler = new CollisionHandler(levelManager.getTest());
         collisionHandler.init(container, game);
-        inputReceiver = new InputReceiver(PlayerHandler.getPlayer());
+        inputReceiver = new InputReceiver(playerHandler);
     }
 
     @Override
