@@ -39,8 +39,8 @@ public class CollisionHandler implements SlickClass {
 
     private void playerCollision() {
         if (player.getBounds().intersects(block.getBounds())) {
-            if (player.getyPos() < block.getBounds().getMinY()) {
-                player.setVerticalMomentum(-12);
+            if (player.getyPos() < block.getMiddleY() && !player.isJumping()) {
+                player.setFooting(block.getBounds().getMinY() - 1);
             }
         }
     }

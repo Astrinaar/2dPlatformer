@@ -60,7 +60,7 @@ public class CombatState extends BasicGameState {
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-        inputReceiver.reactToInput(container);
+        inputReceiver.reactToInput(container, delta);
         playerHandler.update(container, game, delta);
         gravity.update(container, game, delta);
         collisionHandler.update(container, game, delta);

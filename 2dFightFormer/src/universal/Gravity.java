@@ -35,7 +35,7 @@ public class Gravity implements SlickClass {
     }
     
     private void pullPlayer(){
-        if(!player.isOnGround()){
+        if(!player.isOnGround() && !player.isJumping()){
             player.changeVerticalMomentum(gravityPull);
         }
     }

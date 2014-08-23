@@ -14,9 +14,13 @@ import org.newdawn.slick.state.StateBasedGame;
 public class TestBlock implements SlickClass {
 
     private Rectangle bounds;
+    private float middleX;
+    private float middleY;
 
     public TestBlock() {
         bounds = new Rectangle(0, 1010, 1920, 70);
+        middleX = bounds.getCenterX();
+        middleY = bounds.getCenterY();
     }
 
     @Override
@@ -25,7 +29,6 @@ public class TestBlock implements SlickClass {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) {
-        g.draw(bounds);
     }
 
     @Override
@@ -35,5 +38,15 @@ public class TestBlock implements SlickClass {
     public Rectangle getBounds() {
         return bounds;
     }
+
+    public float getMiddleX() {
+        return middleX;
+    }
+
+    public float getMiddleY() {
+        return middleY;
+    }
+    
+    
 
 }

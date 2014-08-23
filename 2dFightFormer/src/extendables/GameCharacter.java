@@ -21,7 +21,8 @@ public abstract class GameCharacter implements SlickClass {
     protected float life;
     protected float maxLife;
     protected float speed;
-    protected boolean OnGround = false;
+    protected float maxSpeed;
+    protected boolean onGround = false;
     protected float horizontalMomentum = 0;
     protected float verticalMomentum = 0;
 
@@ -44,7 +45,17 @@ public abstract class GameCharacter implements SlickClass {
     }
 
     public void changeHorizontalMomentum(float momentum) {
+        if(horizontalMomentum > 0 && momentum < 0){
+            momentum *= 2;
+        } else if(horizontalMomentum < 0 && momentum > 0){
+            momentum *= 2;
+        }
         horizontalMomentum += momentum;
+        if (horizontalMomentum > maxSpeed) {
+            horizontalMomentum = maxSpeed;
+        } else if (horizontalMomentum < maxSpeed * -1) {
+            horizontalMomentum = maxSpeed * -1;
+        }
     }
 
     public void changeVerticalMomentum(float momentum) {
@@ -64,6 +75,12 @@ public abstract class GameCharacter implements SlickClass {
         bounds.setLocation(xPos - (texture.getWidth() / 2), yPos - (texture.getHeight() / 2));
     }
 
+    public void setFooting(float yPos) {
+        this.yPos = yPos - (texture.getHeight() / 2);
+        verticalMomentum = 0;
+        onGround = true;
+    }
+
     public float getxPos() {
         return xPos;
     }
@@ -80,6 +97,14 @@ public abstract class GameCharacter implements SlickClass {
     public void setyPos(float yPos) {
         this.yPos = yPos;
         updateBounds();
+    }
+
+    public float getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public void setMaxSpeed(float maxSpeed) {
+        this.maxSpeed = maxSpeed;
     }
 
     public Image getTexture() {
@@ -115,11 +140,11 @@ public abstract class GameCharacter implements SlickClass {
     }
 
     public boolean isOnGround() {
-        return OnGround;
+        return onGround;
     }
 
     public void setOnGround(boolean OnGround) {
-        this.OnGround = OnGround;
+        this.onGround = OnGround;
     }
 
     public float getHorizontalMomentum() {
