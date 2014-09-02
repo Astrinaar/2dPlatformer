@@ -14,7 +14,7 @@ import player.PlayerHandler;
  */
 public class Gravity implements SlickClass {
 
-    private float gravityPull = 0.25f;
+    private float gravityPull = 0.5f;
     private Player player;
 
     public Gravity() {
@@ -35,7 +35,7 @@ public class Gravity implements SlickClass {
     }
     
     private void pullPlayer(){
-        if(!player.isOnGround() && !player.isJumping()){
+        if(!player.isOnGround()){
             player.changeVerticalMomentum(gravityPull);
         }
     }

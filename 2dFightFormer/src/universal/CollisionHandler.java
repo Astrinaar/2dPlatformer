@@ -1,6 +1,8 @@
 package universal;
 
+import extendables.Platform;
 import extendables.SlickClass;
+import java.util.ArrayList;
 import levelblocks.TestBlock;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -15,11 +17,11 @@ import player.PlayerHandler;
  */
 public class CollisionHandler implements SlickClass {
 
-    private TestBlock block;
+    private ArrayList<Platform> platforms;
     private Player player;
 
-    public CollisionHandler(TestBlock test) {
-        block = test;
+    public CollisionHandler(ArrayList<Platform> platforms) {
+        this.platforms = platforms;
     }
 
     @Override
@@ -38,9 +40,11 @@ public class CollisionHandler implements SlickClass {
     }
 
     private void playerCollision() {
-        if (player.getBounds().intersects(block.getBounds())) {
-            if (player.getyPos() < block.getMiddleY() && !player.isJumping()) {
-                player.setFooting(block.getBounds().getMinY() - 1);
+        for (Platform p : platforms) {
+            if (player.getBounds().intersects(p.getBounds())) {
+                if (player.getyPos() < p.getMiddleY() && !player.isJumping()) {
+                    player.setFooting(p);
+                }
             }
         }
     }

@@ -31,6 +31,8 @@ public class Player extends GameCharacter {
         super(50, 100, ImgArchive.getPlayer());
         this.defaultAni = defaultAni;
         bounds = new Rectangle(xPos - (texture.getWidth() / 2), yPos - (texture.getHeight() / 2), 35, texture.getHeight());
+        middleX = bounds.getMinX() + (bounds.getWidth() / 2);
+        middleY = bounds.getMinY() + (bounds.getHeight() / 2);
         speed = 0.5f;
         maxSpeed = 5;
         jumpSpeed = 2.5f;
@@ -46,6 +48,7 @@ public class Player extends GameCharacter {
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) {
         g.drawAnimation(currentAni, xPos - (texture.getWidth() / 2), yPos - (texture.getHeight() / 2));
+        g.draw(new Rectangle(xPos, yPos, 1, 1));
     }
 
     @Override
@@ -90,7 +93,7 @@ public class Player extends GameCharacter {
             jumping = true;
             onGround = false;
         }
-        changeVerticalMomentum(jumpSpeed * -1);
+        setVerticalMomentum(jumpSpeed * -4);
     }
 
     public boolean isJumping() {
@@ -113,6 +116,15 @@ public class Player extends GameCharacter {
             }
         }
     }
+
+    @Override
+    public void updateBounds() {
+        super.updateBounds();
+        middleX = bounds.getMinX() + (bounds.getWidth() / 2);
+        middleY = bounds.getMinY() + (bounds.getHeight() / 2);
+    }
+    
+    
 
     public float getAirborneSpeed() {
         return airborneSpeed;

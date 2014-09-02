@@ -16,6 +16,8 @@ public abstract class GameCharacter implements SlickClass {
 
     protected float xPos;
     protected float yPos;
+    protected float middleX;
+    protected float middleY;
     protected Image texture;
     protected Rectangle bounds;
     protected float life;
@@ -25,10 +27,13 @@ public abstract class GameCharacter implements SlickClass {
     protected boolean onGround = false;
     protected float horizontalMomentum = 0;
     protected float verticalMomentum = 0;
+    protected Platform ground = null;
 
     public GameCharacter(float xPos, float yPos, Image texture) {
         this.xPos = xPos;
         this.yPos = yPos;
+        middleX = xPos;
+        middleY = yPos;
         this.texture = texture;
         bounds = new Rectangle(xPos - (texture.getWidth() / 2), yPos - (texture.getHeight() / 2), texture.getWidth(), texture.getHeight());
     }
@@ -42,12 +47,15 @@ public abstract class GameCharacter implements SlickClass {
     public void update(GameContainer container, StateBasedGame game, int delta) {
         setxPos(xPos += (horizontalMomentum * MathTool.hundredPerSec * delta));
         setyPos(yPos += (verticalMomentum * MathTool.hundredPerSec * delta));
+        if (!(ground == null)) {
+            checkFooting();
+        }
     }
 
     public void changeHorizontalMomentum(float momentum) {
-        if(horizontalMomentum > 0 && momentum < 0){
+        if (horizontalMomentum > 0 && momentum < 0) {
             momentum *= 2;
-        } else if(horizontalMomentum < 0 && momentum > 0){
+        } else if (horizontalMomentum < 0 && momentum > 0) {
             momentum *= 2;
         }
         horizontalMomentum += momentum;
@@ -76,9 +84,20 @@ public abstract class GameCharacter implements SlickClass {
         bounds.setLocation(xPos - (texture.getWidth() / 2), yPos - (texture.getHeight() / 2));
     }
 
-    public void setFooting(float yPos) {
-        this.yPos = yPos - (texture.getHeight() / 2);
+    public void checkFooting() {
+        if (middleX < ground.getBounds().getMinX()) {
+            ground = null;
+            onGround = false;
+        } else if (middleX > ground.getBounds().getMaxX()) {
+            ground = null;
+            onGround = false;
+        }
+    }
+
+    public void setFooting(Platform ground) {
+        this.yPos = ground.getBounds().getMinY() - 1 - (texture.getHeight() / 2);
         verticalMomentum = 0;
+        this.ground = ground;
         onGround = true;
     }
 
@@ -163,6 +182,30 @@ public abstract class GameCharacter implements SlickClass {
     public void setVerticalMomentum(float verticalMomentum) {
         this.verticalMomentum = verticalMomentum;
         onGround = false;
+    }
+
+    public float getMiddleX() {
+        return middleX;
+    }
+
+    public void setMiddleX(float middleX) {
+        this.middleX = middleX;
+    }
+
+    public float getMiddleY() {
+        return middleY;
+    }
+
+    public void setMiddleY(float middleY) {
+        this.middleY = middleY;
+    }
+
+    public Platform getGround() {
+        return ground;
+    }
+
+    public void setGround(Platform ground) {
+        this.ground = ground;
     }
 
 }
