@@ -52,6 +52,7 @@ public class Player extends GameCharacter {
     public void render(GameContainer container, StateBasedGame game, Graphics g) {
         g.drawAnimation(currentAni, xPos - (texture.getWidth() / 2), yPos - (texture.getHeight() / 2));
         g.draw(new Rectangle(xPos, yPos, 1, 1));
+        g.draw(new Rectangle(middleX, middleY, 2, 2));
     }
 
     @Override
@@ -131,9 +132,7 @@ public class Player extends GameCharacter {
 
     @Override
     public void updateBounds() {
-        super.updateBounds();
-        middleX = bounds.getMinX() + (bounds.getWidth() / 2);
-        middleY = bounds.getMinY() + (bounds.getHeight() / 2);
+        super.updateBounds();        
     }
 
     @Override

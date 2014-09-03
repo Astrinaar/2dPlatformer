@@ -82,6 +82,8 @@ public abstract class GameCharacter implements SlickClass {
 
     public void updateBounds() {
         bounds.setLocation(xPos - (texture.getWidth() / 2), yPos - (texture.getHeight() / 2));
+        middleX = bounds.getMinX() + (bounds.getWidth() / 2);
+        middleY = bounds.getMinY() + (bounds.getHeight() / 2);
     }
 
     public void checkFooting() {
@@ -95,10 +97,31 @@ public abstract class GameCharacter implements SlickClass {
     }
 
     public void setFooting(Platform ground) {
-        this.yPos = ground.getBounds().getMinY() - 1 - (texture.getHeight() / 2);
+        this.yPos = ground.getBounds().getMinY() - 1 - (bounds.getHeight() / 2);
         verticalMomentum = 0;
         this.ground = ground;
         onGround = true;
+    }
+
+    public void stayUnder(Platform platform) {
+        setyPos(platform.getBounds().getMaxY() + 1 + (bounds.getHeight() / 2));
+        if (verticalMomentum < 0) {
+            verticalMomentum = 0;
+        }
+    }
+
+    public void stayLeftOf(Platform platform) {
+        setMiddleX(platform.getBounds().getMinX() - 1 - (bounds.getWidth() / 2));
+        if (horizontalMomentum > 0) {
+            horizontalMomentum = 0;
+        }
+    }
+
+    public void stayRightOf(Platform platform) {
+        setMiddleX(platform.getBounds().getMaxX() + 1 + (bounds.getWidth() / 2));
+        if(horizontalMomentum < 0){
+            horizontalMomentum = 0;
+        }
     }
 
     public float getxPos() {
@@ -190,6 +213,8 @@ public abstract class GameCharacter implements SlickClass {
 
     public void setMiddleX(float middleX) {
         this.middleX = middleX;
+        bounds.setLocation(middleX - (bounds.getWidth() / 2), middleY - (bounds.getHeight() / 2));
+        xPos = bounds.getMinX() + (texture.getWidth() / 2);
     }
 
     public float getMiddleY() {
@@ -198,6 +223,8 @@ public abstract class GameCharacter implements SlickClass {
 
     public void setMiddleY(float middleY) {
         this.middleY = middleY;
+        bounds.setLocation(middleX - (bounds.getWidth() / 2), middleY - (bounds.getHeight() / 2));
+        xPos = bounds.getMinY() + (texture.getHeight() / 2);
     }
 
     public Platform getGround() {
