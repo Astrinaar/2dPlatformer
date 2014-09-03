@@ -53,11 +53,11 @@ public class PlayerHandler implements SlickClass {
         stabAni[0] = ImgArchive.getPlayerStab();
         stabAni[1] = ImgArchive.getPlayerStab2();
         stabAni[2] = ImgArchive.getPlayerStab();
-        stabAni[3] = ImgArchive.getPlayer();        
+        stabAni[3] = ImgArchive.getPlayer();
     }
-    
-    public void attack(int id){
-        switch(id){
+
+    public void attack(int id) {
+        switch (id) {
             case 0:
                 setAnimationLock(19);
                 setCurrentAnimation(stabAni, 50);
@@ -66,6 +66,10 @@ public class PlayerHandler implements SlickClass {
 
     public void jump() {
         player.jump();
+    }
+
+    public void doubleJump() {
+        player.doubleJump();
     }
 
     public void changeHorizontalMomentum(float momentum) {
@@ -91,14 +95,15 @@ public class PlayerHandler implements SlickClass {
     public float getSpeed() {
         return player.getSpeed();
     }
-    
+
     public float getAirborneSpeed() {
         return player.getAirborneSpeed();
     }
 
-    public boolean isJumping(){
+    public boolean isJumping() {
         return player.isJumping();
     }
+
     public boolean isDead() {
         return dead;
     }
@@ -110,16 +115,23 @@ public class PlayerHandler implements SlickClass {
     public static Player getPlayer() {
         return player;
     }
-    
-    public float getAnimationLock(){
+
+    public float getAnimationLock() {
         return player.getAnimationLock();
     }
-    
-    public void setAnimationLock(float duration){
+
+    public void setAnimationLock(float duration) {
         player.setAnimationLock(duration);
     }
 
-    public void setCurrentAnimation(Image[] animation, int duration){
+    public void setCurrentAnimation(Image[] animation, int duration) {
         player.setCurrentAni(animation, duration);
+    }
+
+    public boolean canDoubleJump() {
+        if (player.isCanDoubleJump() && player.getDoubleJumpTimer() <= 0) {
+            return true;
+        }
+        return false;
     }
 }

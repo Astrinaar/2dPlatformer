@@ -31,6 +31,7 @@ public class InputReceiver {
         } else {
             animationLock = true;
         }
+        //On ground.
         if (playerHandler.isOnGround()) {
             if (!animationLock) {
                 if (input.isKeyDown(Input.KEY_D)) {
@@ -48,6 +49,7 @@ public class InputReceiver {
                     playerHandler.attack(0);
                 }
             }
+            //In air.
         } else {
             if (input.isKeyDown(Input.KEY_D)) {
                 playerHandler.changeHorizontalMomentum(playerHandler.getAirborneSpeed());
@@ -55,8 +57,8 @@ public class InputReceiver {
             if (input.isKeyDown(Input.KEY_A)) {
                 playerHandler.changeHorizontalMomentum(playerHandler.getAirborneSpeed() * -1);
             }
-            if (input.isKeyDown(Input.KEY_W) && playerHandler.isJumping()) {
-                playerHandler.jump();
+            if (input.isKeyDown(Input.KEY_W) && playerHandler.canDoubleJump()) {
+                playerHandler.doubleJump();
             }
         }
 

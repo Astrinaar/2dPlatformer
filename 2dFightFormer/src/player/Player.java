@@ -1,6 +1,7 @@
 package player;
 
 import extendables.GameCharacter;
+import extendables.Platform;
 import helpers.ImgArchive;
 import helpers.MathTool;
 import org.newdawn.slick.Animation;
@@ -22,6 +23,8 @@ public class Player extends GameCharacter {
     private float jumpSpeed;
     private boolean jumping = false;
     private float jumpTimer = 0;
+    private boolean canDoubleJump = true;
+    private float doubleJumpTimer = 0;
     private float animationLock = 0;
 
     private Animation currentAni;
@@ -90,10 +93,16 @@ public class Player extends GameCharacter {
     public void jump() {
         if (jumpTimer == 0 && !jumping) {
             jumpTimer = 5;
+            doubleJumpTimer = 35;
             jumping = true;
             onGround = false;
         }
         setVerticalMomentum(jumpSpeed * -4);
+    }
+    
+    public void doubleJump() {
+        setVerticalMomentum(jumpSpeed * -4);
+        canDoubleJump = false;
     }
 
     public boolean isJumping() {
@@ -115,6 +124,9 @@ public class Player extends GameCharacter {
                 setAnimationToDefault();
             }
         }
+        if(doubleJumpTimer > 0){
+            doubleJumpTimer -= MathTool.hundredPerSec * delta;
+        }
     }
 
     @Override
@@ -122,6 +134,12 @@ public class Player extends GameCharacter {
         super.updateBounds();
         middleX = bounds.getMinX() + (bounds.getWidth() / 2);
         middleY = bounds.getMinY() + (bounds.getHeight() / 2);
+    }
+
+    @Override
+    public void setFooting(Platform ground) {
+        super.setFooting(ground);
+        canDoubleJump = true;
     }
     
     
@@ -152,6 +170,22 @@ public class Player extends GameCharacter {
 
     public void setDefaultAni(Image[] defaultAni) {
         this.defaultAni = defaultAni;
+    }
+
+    public boolean isCanDoubleJump() {
+        return canDoubleJump;
+    }
+
+    public void setCanDoubleJump(boolean canDoubleJump) {
+        this.canDoubleJump = canDoubleJump;
+    }
+
+    public float getDoubleJumpTimer() {
+        return doubleJumpTimer;
+    }
+
+    public void setDoubleJumpTimer(float doubleJumpTimer) {
+        this.doubleJumpTimer = doubleJumpTimer;
     }
     
     
