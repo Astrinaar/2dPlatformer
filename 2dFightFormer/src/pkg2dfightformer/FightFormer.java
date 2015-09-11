@@ -25,7 +25,7 @@ public class FightFormer extends StateBasedGame{
      */
     public static void main(String[] args) throws SlickException {
         AppGameContainer app = new AppGameContainer(new FightFormer("Namae"));
-        app.setDisplayMode(1920, 1080, true);
+        app.setDisplayMode(1280, 720, false);
         app.setShowFPS(true);
         app.setTargetFrameRate(59);
         app.setSmoothDeltas(true);
